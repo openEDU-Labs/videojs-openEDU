@@ -5,6 +5,7 @@
   <title>Video.js Open Edu</title>
 
   <link href="node_modules/video.js/dist/video-js/video-js.css" rel="stylesheet">
+  <script src="node_modules/video.js/dist/video-js/video.js"></script>
 
   <style>
     body {
@@ -33,14 +34,14 @@
          class="video-js vjs-default-skin"
          height="300"
          width="600"
-         controls>
+         controls
+         poster="http://video-js.zencoder.com/oceans-clip.png">
     <p>
       Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.
     </p>
     <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
     <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
   </video>
-  <script src="node_modules/video.js/dist/video-js/video.js"></script>
   <script src="lib/videojs-openEDU.js"></script>
   <script>
     // fire up the plugin
