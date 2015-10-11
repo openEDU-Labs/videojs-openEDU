@@ -60,11 +60,10 @@
     <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
   </video>
   <script src="lib/videojs-openEDU.js"></script>
-  <script src="bower_components/videojs-marker/dist/videojs-markers.js"></script>
   <script>
     // fire up the plugin
     var video = videojs('video');
-    video.openEDU();
+    video.openEDU('{"breakpoints":[{"breakpoint":2,"fields":[{"tag":"h1","attr":"","content":"Breakpoint 1 Title"},{"tag":"form","attr":"","content":[{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"input","attr":{"type":"radio"},"content":"example answer 0"},{"tag":"input","attr":{"type":"radio"},"content":"example answer 1"},{"tag":"input","attr":{"type":"radio"},"content":"example answer 2"}]}]},{"breakpoint":4,"fields":[{"tag":"h1","attr":"","content":"Breakpoint 2 Title"},{"tag":"input","attr":"","content":[{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"input","attr":{"type":"text","name":"example field","value":"example"},"content":""},{"tag":"input","attr":{"type":"submit","value":"Submit"},"content":""}]}]}]}');
    // video.markers({
    //   markers: [
    //      {time: 9.5, text: "this"},
