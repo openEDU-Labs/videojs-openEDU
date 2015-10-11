@@ -6,7 +6,6 @@
 
   <link href="node_modules/video.js/dist/video-js/video-js.css" rel="stylesheet">
   <script src="node_modules/video.js/dist/video-js/video.js"></script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -21,7 +20,25 @@
     .video-js {
       margin: 40px auto;
     }
+
+
+    .vjs-custom-overlay-display {
+      position: absolute;
+      bottom: 2em;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
   </style>
+  
+
+  
+
+
+
+
+
+  
 </head>
 <body>
   <div class="info">
@@ -43,9 +60,21 @@
     <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
   </video>
   <script src="lib/videojs-openEDU.js"></script>
+  <script src="bower_components/videojs-marker/dist/videojs-markers.js"></script>
   <script>
     // fire up the plugin
-    videojs('video').openEDU();
+    var video = videojs('video');
+    video.openEDU();
+   // video.markers({
+   //   markers: [
+   //      {time: 9.5, text: "this"},
+   //      {time: 16,  text: "is"},
+   //      {time: 23.6,text: "so"},
+   //      {time: 28,  text: "cool"}
+   //   ]
+   // });
+    //videojs('video').openEDU();
+    
   </script>
 </body>
 </html>
