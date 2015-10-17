@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <title>Video.js Open Edu</title>
 
-  <link href="node_modules/video.js/dist/video-js/video-js.css" rel="stylesheet">
-  <script src="node_modules/video.js/dist/video-js/video.js"></script>
+  <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="node_modules/video.js/dist/video.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -23,22 +24,56 @@
 
 
     .vjs-custom-overlay-display {
+      background:rgba(0,0,0,0.7);
       position: absolute;
       bottom: 2em;
       left: 0;
       right: 0;
       top: 0;
     }
+
+    form {
+      /* Just to center the form on the page */
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      margin-left:auto;
+      margin-right:auto;
+      margin-top:5%;
+      width: 80%;
+      height: 80%;
+
+      /* To see the outline of the form */
+      padding: 2em;
+      border: 1px solid #CCC;
+      border-radius: 1px;
+    }
+
+    form label {
+      display: inline-block;
+      width: auto;
+      text-align: left;
+    }
+
+    form div + div {
+      margin-top: 1em;
+    }
+
+    form input{
+      cursor: pointer;
+    }
+
+    input:focus {
+      /* To give a little highlight on active elements */
+      /*border-color: #fffff;*/
+      background-color: yellow;
+    }
+
+    
   </style>
   
 
-  
-
-
-
-
-
-  
 </head>
 <body>
   <div class="info">
@@ -63,7 +98,7 @@
   <script>
     // fire up the plugin
     var video = videojs('video');
-    video.openEDU('{"breakpoints":[{"breakpoint":2,"fields":[{"tag":"h1","attr":"","content":"Breakpoint 1 Title"},{"tag":"form","attr":"","content":[{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"input","attr":{"type":"radio"},"content":"example answer 0"},{"tag":"input","attr":{"type":"radio"},"content":"example answer 1"},{"tag":"input","attr":{"type":"radio"},"content":"example answer 2"}]}]},{"breakpoint":4,"fields":[{"tag":"h1","attr":"","content":"Breakpoint 2 Title"},{"tag":"input","attr":"","content":[{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"input","attr":{"type":"text","name":"example field","value":"example"},"content":""},{"tag":"input","attr":{"type":"submit","value":"Submit"},"content":""}]}]}]}');
+    video.openEDU('{"breakpoints":[{"breakpoint":1,"fields":[{"tag":"form","attr":{"id":"form"},"content":[{"tag":"h1","attr":"","content":"Breakpoint 1 Title"},{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id1"},"content":""},{"tag":"label","attr":{"for":"id1"},"content":"example 1 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id2"},"content":"example answer 1"},{"tag":"label","attr":{"for":"id2"},"content":"example 2 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id3"},"content":"example answer 2"},{"tag":"label","attr":{"for":"id3"},"content":"example 3 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"submit","value":"Submit and Continue"},"content":""}]}]}]},{"breakpoint":4,"fields":[{"tag":"form","attr":{"id":"form"},"content":[{"tag":"h1","attr":"","content":"Breakpoint 2 Title"},{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id1"},"content":""},{"tag":"label","attr":{"for":"id1"},"content":"example 1 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id2"},"content":"example answer 1"},{"tag":"label","attr":{"for":"id2"},"content":"example 2 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id3"},"content":"example answer 2"},{"tag":"label","attr":{"for":"id3"},"content":"example 3 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"submit","value":"Submit and Continue"},"content":""}]}]}]},{"breakpoint":8,"fields":[{"tag":"form","attr":"","content":[{"tag":"h1","attr":"","content":"Breakpoint 2 Title"},{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"input","attr":{"type":"text","name":"example field","value":"example"},"content":""},{"tag":"input","attr":{"type":"submit","value":"Submit"},"content":""}]}]}]}');
    // video.markers({
    //   markers: [
    //      {time: 9.5, text: "this"},
