@@ -1,4 +1,4 @@
-/*! videojs-openedu - v0.0.1 - 2015-10-17
+/*! videojs-openedu - v0.1.1 - 2015-10-17
 * Copyright (c) 2015 Richard Wendel; Licensed Apache-2.0 */
 /*! videojs-openEDU - v0.0.0 - 2015-10-1
  * Copyright (c) 2015 rgw3d
