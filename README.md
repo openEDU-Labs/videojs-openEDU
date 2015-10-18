@@ -7,10 +7,11 @@ A better way to learn online with openEDU
 Once you've added the plugin script to your page, you can use it with any video:
 
 ```html
-<script src="video.js"></script>
-<script src="videojs-openEDU.js"></script>
+<script src="video.js"></script> //import Video.js
+<script src="videojs-openEDU.js"></script>//import videojs-openEDU
 <script>
-  videojs(document.querySelector('video')).openEDU();
+    var video = videojs('video');//get the Video.js player
+    video.openEDU('options');//fire up the plugin
 </script>
 ```
 
@@ -23,11 +24,7 @@ You may pass in an options object to the plugin upon initialization. This
 object may contain any of the following properties:
 
 #### option
-Type: `boolean`
-Default: true
-
-An example boolean option that has no effect.
-
+options coming soon
 ## Release History
 
- - 0.1.0: Initial release
+ - 10-17-15     0.0.1: Start of initial development

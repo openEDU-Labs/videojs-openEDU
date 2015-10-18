@@ -1,8 +1,8 @@
 {
   "name": "videojs-openedu",
-  "version": "0.0.0",
-  "author": "rgw3d",
-  "description": "A better way to learn online with openEDU",
+  "version": "0.0.1",
+  "author": "Richard Wendel",
+  "description": "Video.js plugin for openEDU",
   "license": "Apache-2.0",
   "keywords": [
     "videojs",
