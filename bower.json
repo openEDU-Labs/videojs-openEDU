@@ -1,6 +1,6 @@
 {
   "name": "videojs-openedu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/openEDU-Labs/videojs-openEDU",
   "authors": [
     "Richard Wendel"
@@ -20,10 +20,11 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests",
     "Gruntfile.js",
     "package.json",
-    ".*",
+    "*.gitignore",
+    "*.jshintrc",
+    "*.npmignore",
     "examples"
   ],
   "dependencies": {
