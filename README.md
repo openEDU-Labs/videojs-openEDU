@@ -27,4 +27,4 @@ object may contain any of the following properties:
 options coming soon
 ## Release History
 
- - 10-17-15     0.0.1: Start of initial development
+ - 10-17-15     0.1.0: Start of initial development
