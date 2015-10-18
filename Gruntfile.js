@@ -20,6 +20,17 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'lib/',
+          src: ['videojs-openEDU.css'],
+          dest: 'dist',
+          ext: '.min.css'
+        }]
+      }
+    },
     uglify: {
       options: {
         banner: '<%= banner %>'
@@ -74,6 +85,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   grunt.registerTask('default',
                      ['clean',
@@ -84,5 +96,6 @@ module.exports = function(grunt) {
   grunt.registerTask('build',
                       ['clean',
                       'concat',
-                      'uglify']);
+                      'uglify',
+                      'cssmin']);
 };
