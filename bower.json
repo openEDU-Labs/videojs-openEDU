@@ -1,6 +1,6 @@
 {
   "name": "videojs-openedu",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/openEDU-Labs/videojs-openEDU",
   "authors": [
     "Richard Wendel"
@@ -29,6 +29,7 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "video.js": "~5.0.0"
+    "videojs": "~5.0.0",
+    "videojs-youtube": "~2.0.0"
   }
 }

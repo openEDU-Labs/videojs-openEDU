@@ -26,5 +26,6 @@ object may contain any of the following properties:
 #### option
 options coming soon
 ## Release History
+ - 10-20-15     0.1.3: Non-Crappy CSS for quizes
  - 10-17-15     0.1.2: Small changes to get everything working with Bower
  - 10-17-15     0.1.0: Start of initial development

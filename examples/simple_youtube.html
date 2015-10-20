@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="../bower_components/videojs/dist/video-js.min.css" rel="stylesheet">
+  <link href="../lib/videojs-openEDU.css" rel="stylesheet">
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
+</head>
+<body>
+  <video
+    id="vid1"
+    class="video-js vjs-default-skin"
+    controls
+    autoplay
+    width="640" height="264"
+    data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}] }'>
+  </video>
+
+  <script src="../bower_components/videojs/dist/video.min.js"></script>
+  <script src="../bower_components/videojs-youtube/dist/Youtube.min.js"></script>
+  <script src="../dist/videojs-openedu.js"></script>
+
+  <script>
+      var video = videojs('vid1');
+    video.openEDU('{"breakpoints":[{"breakpoint":1,"fields":[{"tag":"form","attr":{"id":"form"},"content":[{"tag":"h1","attr":{"id":"question_title"},"content":"Breakpoint 1 Title"},{"tag":"p","attr":{"id":"question"},"content":"Description Description Description"},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id1"},"content":""},{"tag":"label","attr":{"for":"id1"},"content":"example 1 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id2"},"content":"example answer 1"},{"tag":"label","attr":{"for":"id2"},"content":"example 2 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id3"},"content":"example answer 2"},{"tag":"label","attr":{"for":"id3"},"content":"example 3 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"class":"question_button","type":"submit","value":"Submit and Continue"},"content":""}]}]}]},{"breakpoint":4,"fields":[{"tag":"form","attr":{"id":"form"},"content":[{"tag":"h1","attr":"","content":"Breakpoint 2 Title"},{"tag":"p","attr":"","content":"Description Description Description"},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id1"},"content":""},{"tag":"label","attr":{"for":"id1"},"content":"example 1 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id2"},"content":"example answer 1"},{"tag":"label","attr":{"for":"id2"},"content":"example 2 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id3"},"content":"example answer 2"},{"tag":"label","attr":{"for":"id3"},"content":"example 3 description"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"submit","class":"question_button","value":"Submit and Continue"},"content":""}]}]}]}]}');
+      
+  </script>
+</body>
+</html>
