@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Video.js Open Edu</title>
+  <link href="../bower_components/videojs/dist/video-js.css" rel="stylesheet">
+  <link href="../lib/videojs-openEDU.css" rel="stylesheet">
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .info {
+      background-color: #eee;
+      border: thin solid #333;
+      border-radius: 3px;
+      padding: 0 5px;
+      text-align: center;
+    }
+    .video-js {
+      margin: 40px auto;
+    }
+    
+  </style>
+  
+
+</head>
+<body>
+  <div class="info">
+    <p>
+      You can see the Video.js Open Edu plugin in action below.
+      Look at the source of this page to see how to use it with your videos.
+    </p>
+  </div>
+  <div data-ng-app="openEDU" data-ng-controller="videoDisplay">
+    <video id="video" height="400px" class="video_box video-js vjs-default-skin"  controls data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=riXcZT2ICjA"}] }'>
+        <p>Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.</p>
+      </video>
+  </div>
+  <script src="../bower_components/videojs/dist/video.js"></script>
+  <script src="../bower_components/videojs-youtube/dist/Youtube.js"></script>
+  <script src="../lib/new-videojs-openEDU.js"></script>
+  <script>
+        var video = videojs('video');
+        video.openEDU('{"breakpoints":[{"breakpoint":1.2,"fields":[{"tag":"form","attr":{"id":"form"},"content":[{"tag":"h1","attr":{"id":"question_title"},"content":"Question #1"},{"tag":"p","attr":{"id":"question"},"content":"What is all of calculus based on?"},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id1"},"content":""},{"tag":"label","attr":{"for":"id1"},"content":"Magic"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id2"},"content":""},{"tag":"label","attr":{"for":"id2"},"content":"Limits"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id3"},"content":""},{"tag":"label","attr":{"for":"id3"},"content":"Hell"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id4"},"content":""},{"tag":"label","attr":{"for":"id4"},"content":"Rainbows and Unicorns"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"class":"question_button","type":"submit","value":"Submit and Continue"},"content":""}]}]}]},{"breakpoint":3,"fields":[{"tag":"form","attr":{"id":"form"},"content":[{"tag":"h1","attr":"","content":"Question #2"},{"tag":"p","attr":"","content":"Are Limits really that simple?"},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id1"},"content":""},{"tag":"label","attr":{"for":"id1"},"content":"I think they are"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id2"},"content":""},{"tag":"label","attr":{"for":"id2"},"content":"I hate limits"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id3"},"content":""},{"tag":"label","attr":{"for":"id3"},"content":"I am already confused"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"radio","name":"question","id":"id4"},"content":""},{"tag":"label","attr":{"for":"id4"},"content":"Yes"}]},{"tag":"div","attr":"","content":[{"tag":"input","attr":{"type":"submit","class":"question_button","value":"Submit and Continue"},"content":""}]}]}]}]}');
+  </script>
+</body>
+</html>
