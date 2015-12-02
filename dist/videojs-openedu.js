@@ -1,117 +1,147 @@
-/*! videojs-openedu - v0.1.3 - 2015-10-20
+/*! videojs-openedu - v0.1.5 - 2015-12-01
 * Copyright (c) 2015 Richard Wendel; Licensed Apache-2.0 */
-/*! videojs-openEDU - v0.0.0 - 2015-10-1
- * Copyright (c) 2015 rgw3d
- * Licensed under the Apache-2.0 license. */
-(function(window, document, videojs) {
+(function(videojs) {
   'use strict';
   var player;
   var settings;
-  var nextBreakpoint;
+  var breakpoints = [];
+  var breakIndx = 0;
+  var parentDiv;
 
-  var onTimeUpdate  = function(){
-    var currentTime = this.currentTime();
-    console.log(currentTime);
-    if(nextBreakpoint === undefined){
-      nextBreakpoint = getNextBreakpoint(settings.breakpoints);
-    }
 
-    if(nextBreakpoint && currentTime > nextBreakpoint.breakpoint){
-      onBreakpoint(nextBreakpoint);
-      nextBreakpoint = getNextBreakpoint(settings.breakpoints);
-    }
-
+  /**
+   * Initialize the plugin.
+   * 'this' will be the video player when this method is called
+   * @param options (optional) {object} configuration for the plugin
+   */
+  var openEDU = function(options) {
+      settings = JSON.parse(options);
+      player = this;
+      //var settings = videojs.util.mergeOptions(testSettings, options);
+      initBreakpoints(settings.breakpoints);
+      player.on('timeupdate', onTimeUpdate);
   };
 
-  var onBreakpoint = function(breakpoint){
-    onPause(breakpoint);
-    var parentDiv = createEl('div',{'class':'vjs-openEDU'});
-    createBreakpointContent(breakpoint.fields, parentDiv);
-    defineSubmitBehavior(function(){
-      onPlay(parentDiv);
-    });
+  videojs.plugin('openEDU', openEDU); // register the plugin
+
+  /**
+   * Initialize breakpoints into breakpoints[] array.
+   * This will set the time of the prior breakpoint (or 0, if there is not one)
+   * and it will set "completed" value of the breakpoint to false
+   */
+  var initBreakpoints = function(breakpointList) {
+      for (var i = 0; i < breakpointList.length; i++){
+          breakpoints.push(breakpointList[i]);
+
+          breakpoints[i].inProgress = false;
+          breakpoints[i].completed = false;
+          if(i>0) {
+              breakpoints[i].lastBreak = breakpoints[i-1].breakpoint;
+          }
+          else {
+              breakpoints[i].lastBreak = 0;
+          }
+      }
   };
 
-  var defineSubmitBehavior = function(callback){
+  var onTimeUpdate = function() {
+      var currentTime = player.currentTime();
+      console.log(currentTime);
+
+      //Check if indx is in bounds && breakpoint at that index is less than current time => trigger breakpoint
+      if(breakIndx < breakpoints.length && breakpoints[breakIndx].breakpoint < currentTime) {
+          if (!breakpoints[breakIndx].inProgress) {
+              console.log('breakpoint reached');
+              console.log(breakpoints[breakIndx]);
+              breakpoints[breakIndx].inProgress = true;
+              onBreakpoint();
+          }
+      }
+      
+  };
+
+  var onBreakpoint = function() {
+      jumpToEarliestBreakpoint();
+      pause();
+      if (parentDiv === undefined){
+          parentDiv = createEl('div', {'class': 'vjs-openEDU', 'style': 'display:block'});
+      }
+
+      showParent();
+      createBreakpointContent(breakpoints[breakIndx].fields, parentDiv);
+      submitBehavior(function() {
+          play();
+      });
+  };
+
+  var submitBehavior = function(callback) {
     $('#form').submit(function(event) {
-        // get the form data
-        // there are many ways to get this data using jQuery (you can use the class or id also)
-        // work on this later, process it someway
-        /*var formData = {
-            'name'              : $('input[name=name]').val(),
-            'email'             : $('input[name=email]').val(),
-            'superheroAlias'    : $('input[name=superheroAlias]').val()
-        };
-        */
+        event.preventDefault();
+        /*var breakpointNumber = breakIndx;
+        var selected = $("input[type=radio]:checked","#form");
+        var selectedQuestion = parseInt(selected.attr("id").replace("id",""));
+        console.log(breakpointNumber);
+        console.log(selectedQuestion);
+        
+        var data = {
+            //'video' = 'url' //or other sort of id
+            'breakpointNumber' = breakpointNumber,//
+            'answer' = selectedQuestion
+            //'student' = some identification
+        }
 
-
-        /*
-        // process the form
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'process.php', // the url where we want to POST//TODO
-            data        : formData, // our data object
-            dataType    : 'json', // what type of data do we expect back from the server
-            encode      : true
+            type:       'POST',
+            url:        'url',
+            data:       data,
+            dataType:   'json',
+            encode:     true
         })
-            .done(function(data) {// using the done promise callback
-
-                // log data to the console so we can see
-                console.log(data); 
-                
-                // here we will handle errors and validation messages
+            .done(function(data) {
+                console.log(data);
             });
 
-        // stop the form from submitting the normal way and refreshing the page
         */
-        event.preventDefault();
         callback();
     });
   };
 
-  /**
-   * elements is an array
-   * context is the dom conext
-   * both are required 
-   */
+  var jumpToEarliestBreakpoint = function() {
+      var earliestNotCompleted = 0;//indx of earliest breakpoint not completed
+      //this indx should be equal to breakIndx.
+      //if not, then set breakIndx to this
+      for (var i = 0; i < breakpoints.length; i++){
+          if (!breakpoints[i].completed) {
+              earliestNotCompleted = i;
+              break;
+          }
+      }
+      breakIndx = earliestNotCompleted;//should be equal already, but fixing it if otherwise
+      player.currentTime(breakpoints[breakIndx].breakpoint);
+  };
+
+  var pause = function() {
+      player.pause();
+      player.getChild('controlBar').hide();
+  };
+
+  var play = function() {
+      breakpoints[breakIndx++].completed = true;
+      player.play();
+      player.getChild('controlBar').show();
+      hideParent();
+  };
+
   var createBreakpointContent = function(elements, context){
-    elements.forEach(function(tag){
-      var el = createEl(tag.tag, tag.attr, context);
-      if(typeof tag.content === 'object'){ //there are internal tags
-        createBreakpointContent(tag.content, el);
-      }
-      else{ //there are not internal tags 
-        el.innerHTML = tag.content;
-      }
-    });
-    
-  };
-
-  var onPause = function(breakpoint){
-    player.pause();
-    player.getChild('controlBar').hide();
-    breakpoint.resolved = true;
-  };
-
-  var onPlay = function(parentDiv){
-    player.play();
-    player.getChild('controlBar').show();
-    player.el().removeChild(parentDiv);
-  };
- 
-  var initBreakpoints = function(breakpoints){
-    breakpoints.forEach(function(breakpoint){
-      breakpoint.resolved = false;
-    });
-  };
-
-  var getNextBreakpoint = function(breakpoints){
-    for(var i = 0; i<breakpoints.length; i++){
-      if(!breakpoints[i].resolved){
-        return breakpoints[i];
-      }
-    }
-    return null;
+      elements.forEach(function(tag){
+          var el = createEl(tag.tag, tag.attr, context);
+            if (typeof tag.content === 'object') { //there are internal tags
+                createBreakpointContent(tag.content, el);
+            }
+            else { //there are not internal tags 
+                el.innerHTML = tag.content;
+          }
+      });
   };
 
   /**
@@ -121,34 +151,25 @@
    *
    */
   var createEl  = function(tagName, attributes, base){
-    var el = document.createElement(tagName);
+      var el = document.createElement(tagName);
 
-    var parentEl = base || player.el();
-    parentEl.appendChild(el);
-    
-    Object.getOwnPropertyNames(attributes).forEach(function(attrName){
-      if(attrName !== 'length' && attributes[attrName] !== '0'){//would set length="0" 
-        el.setAttribute(attrName, attributes[attrName]);
-      }
-    });
-    
-    return el;
+      var parentEl = base || player.el();
+      parentEl.appendChild(el);
+      
+      Object.getOwnPropertyNames(attributes).forEach(function(attrName){
+          if(attrName !== 'length' && attributes[attrName] !== '0'){//would set length="0" 
+              el.setAttribute(attrName, attributes[attrName]);
+          }
+      });
+      
+      return el;
   };
 
-
-  /**
-   * Initialize the plugin.
-   * 'this' will be the video player when this method is called
-   * @param options (optional) {object} configuration for the plugin
-   */
-  var openEDU = function(options) {
-    settings = JSON.parse(options);
-    player = this;
-    //var settings = videojs.util.mergeOptions(testSettings, options);
-    initBreakpoints(settings.breakpoints);
-    player.on('timeupdate', onTimeUpdate);
+  var hideParent = function() {
+      $(parentDiv).css('display','none').html('');
+  };
+  var showParent = function() {
+      $(parentDiv).css('display','block');
   };
 
-  videojs.plugin('openEDU', openEDU); // register the plugin
-
-})(window, document, window.videojs);
+})(window.videojs);
